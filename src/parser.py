@@ -1,4 +1,6 @@
 import pandas as pd
+from collections import defaultdict
+
 def parse(filename):
     with open(filename, 'r') as fi:
         global_time, nb_inter, nb_streets, nb_cars, car_score = map(int, fi.readline().split())
@@ -19,9 +21,14 @@ def parse(filename):
                 'paths': line[1: ].replace('\n', '').split(' ')[1:]
             })
         
+        graph = defaultdict(dict)
+        for street in streets:
+            graph[street['start_at']][street['end_at']] = street['L']
+
         dataset = {
             'streets': streets,
-            'paths': paths
+            'paths': paths,
+            'graph': graph
         }
 
         return dataset

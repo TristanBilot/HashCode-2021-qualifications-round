@@ -3,9 +3,9 @@ import glob
 import parser, solver, scorer, writer
 
 # for idx, filename in enumerate(glob.glob('../input/*')):
-filename = '../input/b.txt'
-dataset = parser.parse(filename)
-solution = solver.solve(dataset)
-# score = scorer.score(solution, dataset)
-# print('Score for %s: %s/%s (%s to perfect score)' % (filename, score, dataset['knapsize'], dataset['knapsize'] - score))
-# writer.write(solution, filename.replace('datasets','solutions'))
+filenames = ['a.txt', 'b.txt', 'c.txt', 'd.txt', 'e.txt']
+for filename in filenames[0: 1]:
+    fn = '../input/{}'.format(filename)
+    dataset = parser.parse(fn)
+    solution = solver.solve(dataset)
+    writer.write(solution, '../output/{}'.format(filename.replace('.txt', '.out')))
