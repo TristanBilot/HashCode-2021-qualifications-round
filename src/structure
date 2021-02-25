@@ -4,7 +4,7 @@ input dataset :
 
 {
     'total_simulation' : 6
-    'instructions' : 4
+    'intresections' : 4
     'cars' : 2
     'score' : 1000
     'rue amestrdam' : [(0,1), 1 second]  
@@ -12,6 +12,11 @@ input dataset :
     '...',
     'cars paths' : {number : 4, in the same order } 
 }
+objets cars :
+{
+    '4', .....
+}
+
 
 example donnee :
 
