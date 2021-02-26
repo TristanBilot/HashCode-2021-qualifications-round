@@ -1,27 +1,28 @@
-
-import pandas as pd  
-
-def solve3(dataset):
-    pass
-
-def sol1(dataset):
-    paths = pd.DataFrame(dataset["paths"])
-    streets = pd.DataFrame(dataset["streets"])
-    for p in paths["paths"]:
-        print("P+",p)
-        # streets.loc[p]["nb_pass"] = streets.loc[p].get("nb_pass", 0) + 1
-        print("A")
-        print(streets[p])
-
-        
-        
-        
-
-
 def solve(dataset):
-    sol1(dataset)
-    return [
-        [1, 2, ('rue-d-athenes', 2), ('rue-d-amsterdam', 1)],
-        [0, 1, ('rue-de-londres', 2)],
-        [2, 1, ('rue-de-moscou', 1)]
-    ]
+    paths = dataset["paths"]
+    streets = dataset["streets"]
+    time = 0
+    solutions = []
+    values = []
+
+    for i in range(len(paths)):
+        path = paths[i]
+        val = 0
+        for street in path["paths"]:
+            street_data = streets[street]
+            val += street_data["L"]
+        values.append({"index": i, "val": val})
+
+    sorted_values = sorted(values, key=lambda x: x["val"])
+    sorted_paths = []
+    for val in sorted_values:
+        sorted_paths.append(paths[val["index"]])
+
+    for path in sorted_paths[0:1]:
+        for street in path["paths"]:
+            street_data = streets[street]
+            random_timeout = int(dataset["global"] / len(path)) - 1
+
+            solutions.append([street_data["end_at"], 1, (street, random_timeout)])
+            time += street_data["L"]
+    return solutions
